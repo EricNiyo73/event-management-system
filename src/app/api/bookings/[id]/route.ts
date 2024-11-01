@@ -2,15 +2,14 @@ import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-
-export async function POST(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+interface IParams {
+  params: Promise<{ id: string }>;
+}
+export async function POST(request: Request, { params }: IParams) {
   try {
     const body = await request.json();
     const { name, email, seatCount } = body;
-    const eventId = params.id;
+    const { id: eventId } = await params;
 
     const event = await prisma.event.findUnique({
       where: { id: eventId },

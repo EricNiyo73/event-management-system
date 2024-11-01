@@ -35,8 +35,8 @@ const AdminDashboard = () => {
         description: "You do not have permission to access this page.",
         variant: "destructive",
       });
-      router.push("/");
       setAuth("", null);
+      router.push("/");
     } else {
       fetchEvents();
     }
@@ -135,8 +135,6 @@ const AdminDashboard = () => {
     }
   };
   const handleDelete = async (eventId: string) => {
-    if (!confirm("Are you sure you want to delete this event?")) return;
-
     try {
       setIsLoading(true);
       const response = await fetch(`/api/events/${eventId}`, {
@@ -146,6 +144,7 @@ const AdminDashboard = () => {
       const data = await response.json();
 
       if (!response.ok) {
+        // console.log(data);
         throw new Error(data.error || "Failed to delete event");
       }
 
@@ -170,7 +169,7 @@ const AdminDashboard = () => {
   return (
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Event Management</h1>
+        <h1 className="text-xl font-bold">Event Management</h1>
         <Button
           onClick={() => setIsEditing(true)}
           className="bg-blue-600 hover:bg-blue-700"

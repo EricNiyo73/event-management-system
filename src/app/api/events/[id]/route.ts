@@ -4,17 +4,15 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 interface RouteParams {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export async function GET(request: Request, context: RouteParams) {
   try {
-    const { params } = await context;
+    const { id } = await context.params;
     const event = await prisma.event.findUnique({
       where: {
-        id: params.id,
+        id: id,
       },
     });
 
@@ -34,13 +32,11 @@ export async function GET(request: Request, context: RouteParams) {
 
 export async function PUT(request: Request, context: RouteParams) {
   try {
-    const { params } = await context;
+    const { id } = await context.params;
     const body = await request.json();
-
-    // Check if event exists
     const existingEvent = await prisma.event.findUnique({
       where: {
-        id: params.id,
+        id: id,
       },
     });
 
@@ -50,7 +46,7 @@ export async function PUT(request: Request, context: RouteParams) {
 
     const event = await prisma.event.update({
       where: {
-        id: params.id,
+        id: id,
       },
       data: {
         title: body.title,
@@ -73,12 +69,12 @@ export async function PUT(request: Request, context: RouteParams) {
 
 export async function DELETE(request: Request, context: RouteParams) {
   try {
-    const { params } = await context;
+    const { id } = await context.params;
 
     // Check if event exists
     const existingEvent = await prisma.event.findUnique({
       where: {
-        id: params.id,
+        id: id,
       },
     });
 
@@ -86,9 +82,10 @@ export async function DELETE(request: Request, context: RouteParams) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });
     }
 
+    // Delete the event
     await prisma.event.delete({
       where: {
-        id: params.id,
+        id: id,
       },
     });
 

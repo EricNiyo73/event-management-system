@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-// import { authMiddleware } from "@/app/lib/auth";
 
 const prisma = new PrismaClient();
 
@@ -24,11 +23,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    // Log the raw request body for debugging
     const rawBody = await req.text();
     console.log("Raw request body:", rawBody);
 
-    // Parse the JSON manually
     const body = JSON.parse(rawBody);
     console.log("Parsed request body:", body);
     if (!body || typeof body !== "object") {
@@ -40,7 +37,6 @@ export async function POST(req: NextRequest) {
 
     const { title, description, date, totalSeats } = body;
 
-    // Validate that required fields are present
     if (!title || !description || !date || !totalSeats) {
       return NextResponse.json(
         { error: "Missing required fields" },

@@ -1,10 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { NextRequest, NextResponse } from "next/server";
 
-const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || "my_jwt_secret";
 
 export const generateToken = (payload: any) => {

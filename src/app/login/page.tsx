@@ -7,13 +7,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@/app/zustand/zustand";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -92,7 +86,6 @@ export default function LoginPage() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {/* Display login error */}
           {loginError && (
             <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded mb-4">
               {loginError}
