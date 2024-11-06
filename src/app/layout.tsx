@@ -20,12 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="min-h-screen flex flex-col">
-          {/* Navigation Header */}
           <header className="bg-white shadow">
             <nav className="container mx-auto px-4 py-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
-                  {/* Logo/Home Link */}
                   <Link
                     href="/"
                     className="text-xl font-bold text-blue-600 hover:text-blue-700"
@@ -54,11 +52,9 @@ export default function RootLayout({
             </nav>
           </header>
 
-          {/* Main Content */}
           <main className="flex-grow">{children}</main>
           <Toaster />
 
-          {/* Footer */}
           <footer className="bg-blue-600  border-t">
             <div className="container mx-auto px-4 py-6">
               <div className="flex flex-col md:flex-row justify-between items-center">
